@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Doctor Dashboard - Healthcare App</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+  <!-- Header -->
+  <header>
+    <div class="logo" onclick="window.location.href='index.html'">
+      <img src="images/logo.png" alt="Healthcare Logo" />
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="notifications.html">Notifications</a></li>
+        <li><a href="health_article.html">Health Articles</a></li>
+        <li id="logout-link">Logout</li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="dashboard">
+    <!-- Welcome Message -->
+    <section class="welcome-card">
+      <h1>Welcome, Doctor!</h1>
+      <p class="subtitle">Manage your appointments and access patient documents below.</p>
+    </section>
+
+    <!-- Appointment List -->
+    <section>
+      <h2>Your Appointments</h2>
+      <ul id="appointmentList" class="grid grid-2"></ul>
+    </section>
+
+    <!-- Medical Documents -->
+    <section>
+      <h2>Your Patients' Medical Documents</h2>
+      <ul id="documentList" class="grid grid-2"></ul>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2023 Healthcare App. All rights reserved.
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Sample Data
+    const appointments = [
+      { id: 1, patientName: 'John Doe', date: '2023-10-15', time: '10:00 AM' },
+      { id: 2, patientName: 'Jane Smith', date: '2023-10-16', time: '11:00 AM' },
+    ];
+
+    const documents = [
+      { patientName: 'John Doe', documentLink: 'documents/john_doe_medical_report.pdf' },
+      { patientName: 'Jane Smith', documentLink: 'documents/jane_smith_medical_report.pdf' },
+    ];
+
+    // Render appointments
+    function renderAppointments() {
+      const appointmentList = document.getElementById('appointmentList');
+      appointmentList.innerHTML = '';
+      appointments.forEach(app => {
+        const li = document.createElement('li');
+        li.className = 'card';
+        li.innerHTML = `
+          <h3>${app.patientName}</h3>
+          <p><strong>Date:</strong> ${app.date}</p>
+          <p><strong>Time:</strong> ${app.time}</p>
+        `;
+        appointmentList.appendChild(li);
+      });
+    }
+
+    // Render documents
+    function renderMedicalDocuments() {
+      const documentList = document.getElementById('documentList');
+      documentList.innerHTML = '';
+      documents.forEach(doc => {
+        const li = document.createElement('li');
+        li.className = 'card';
+        li.innerHTML = `
+          <h3>${doc.patientName}</h3>
+          <p><a href="${doc.documentLink}" class="btn btn-secondary" target="_blank">View Document</a></p>
+        `;
+        documentList.appendChild(li);
+      });
+    }
+
+    // Logout Handler
+    function handleLogout() {
+      sessionStorage.clear(); // or localStorage.clear();
+      alert('Logged out successfully!');
+      window.location.href = 'index.html';
+    }
+
+    // Load everything on DOM
+    document.addEventListener('DOMContentLoaded', () => {
+      renderAppointments();
+      renderMedicalDocuments();
+      document.getElementById('logout-link').addEventListener('click', handleLogout);
+    });
+  </script>
+</body>
+
+</html>

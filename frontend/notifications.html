@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Notifications - Healthcare App</title>
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="images/logo.png" alt="Healthcare Logo" />
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="medical_documents.html">Medical Documents</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+                <li><a href="logout.html">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Your Notifications</h1>
+        <ul id="notificationList"></ul>
+    </main>
+    <footer>
+        &copy; 2023 Healthcare App. All rights reserved.
+    </footer>
+    <script>
+        // Sample notifications data stored on frontend
+        const notifications = [
+            { id: 1, title: 'Appointment Confirmation', message: 'Your appointment with Dr. John Doe is confirmed for 10/15/2023.', time: '2023-10-10 10:00', isRead: false },
+            { id: 2, title: 'Prescription Ready', message: 'Your prescription from Dr. Jane Smith has been uploaded.', time: '2023-10-11 09:30', isRead: true },
+            { id: 3, title: 'New Health Article', message: 'Dr. Emily Johnson has published a new health article about heart health.', time: '2023-10-12 08:00', isRead: false }
+        ];
+
+        const notificationList = document.getElementById('notificationList');
+
+        function renderNotifications() {
+            notificationList.innerHTML = '';
+            if (notifications.length === 0) {
+                notificationList.innerHTML = '<li>No notifications available.</li>';
+                return;
+            }
+            notifications.forEach(notification => {
+                const li = document.createElement('li');
+                li.innerHTML = `<strong>${notification.title}:</strong> ${notification.message} <br/><small><em>${notification.time}</em></small>`;
+                if (!notification.isRead) {
+                    li.style.fontWeight = '600';
+                }
+                notificationList.appendChild(li);
+            });
+        }
+
+        // Initialize notification list on page load
+        document.addEventListener('DOMContentLoaded', renderNotifications);
+    </script>
+</body>
+
+</html>

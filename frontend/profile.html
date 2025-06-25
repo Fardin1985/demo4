@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Your Profile</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 4rem auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem 3rem;
+        }
+
+        h1 {
+            text-align: center;
+            color: #0f172a;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        label {
+            display: block;
+            margin: 1rem 0 0.3rem;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        input[type="text"],
+        input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+
+        input:focus {
+            border-color: #3b82f6;
+            outline: none;
+        }
+
+        .btn {
+            margin-top: 2rem;
+            padding: 12px 30px;
+            font-size: 1rem;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #2563eb;
+        }
+
+        .footer-links {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .footer-links a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Edit Profile</h1>
+        <form id="profileForm">
+            <label for="username">Name:</label>
+            <input type="text" id="username" required />
+
+            <label for="userEmail">Email:</label>
+            <input type="email" id="userEmail" required />
+
+            <label for="userRole">Role:</label>
+            <input type="text" id="userRole" disabled />
+
+            <button type="submit" class="btn">Save Changes</button>
+        </form>
+
+        <div class="footer-links">
+            <a href="index.html">← Back to Homepage</a>
+        </div>
+    </div>
+
+    <script>
+        // Load existing data from sessionStorage
+        document.getElementById('username').value = sessionStorage.getItem('username') || '';
+        document.getElementById('userEmail').value = sessionStorage.getItem('userEmail') || '';
+        document.getElementById('userRole').value = sessionStorage.getItem('userRole') || 'Unknown';
+
+        // Save updates on form submit
+        document.getElementById('profileForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const updatedName = document.getElementById('username').value;
+            const updatedEmail = document.getElementById('userEmail').value;
+
+            sessionStorage.setItem('username', updatedName);
+            sessionStorage.setItem('userEmail', updatedEmail);
+
+            alert('Profile updated successfully!');
+            window.location.href = 'profile.html'; // refresh profile
+        });
+    </script>
+</body>
+
+</html>

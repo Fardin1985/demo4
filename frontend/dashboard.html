@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard - Healthcare App</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+  <header>
+    <div class="logo" onclick="window.location.href='index.html'">
+      <img src="images/logo.png" alt="Healthcare Logo" />
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="departments.html">Departments</a></li>
+        <li><a href="doctors.html">Doctors</a></li>
+        <li><a href="appointment.html">Make Appointment</a></li>
+        <li><a href="symptom_checker.html">Symptom Checker</a></li>
+        <li><a href="medical_documents.html">Medical Documents</a></li>
+        <li><a href="health_article.html">Health Articles</a></li>
+        <li><a href="notification.html">Notifications</a></li>
+        <li id="logout-link">Logout</li>
+        <li id="navLogout" style="display:none;">Logout</li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="dashboard">
+    <section class="welcome-card">
+      <h1>Welcome to Your Dashboard</h1>
+      <p class="subtitle">Manage your health logs, appointments, and medical documents here.</p>
+    </section>
+
+    <section class="dashboard-grid">
+      <div class="card" onclick="location.href='appointment.html'">
+        <h2>My Appointments</h2>
+        <p>View, schedule or cancel your appointments.</p>
+      </div>
+      <div class="card" onclick="location.href='health_logs.html'">
+        <h2>Health Logs</h2>
+        <p>Track your vitals, symptoms, and history.</p>
+      </div>
+      <div class="card" onclick="location.href='medical_documents.html'">
+        <h2>Medical Documents</h2>
+        <p>Download your reports and prescriptions.</p>
+      </div>
+      <div class="card" onclick="location.href='profile.html'">
+        <h2>My Profile</h2>
+        <p>Edit your profile and personal health info.</p>
+      </div>
+    </section>
+  </main>
+  <footer>
+    &copy; 2023 Healthcare App. All rights reserved.
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+
+</html>

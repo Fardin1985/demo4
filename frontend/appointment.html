@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Make Appointment - Healthcare App</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+  <header>
+    <div class="logo" onclick="window.location.href='index.html'">
+      <img src="images/logo.png" alt="Healthcare Logo" />
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="departments.html">Departments</a></li>
+        <li><a href="doctors.html">Doctors</a></li>
+        <li><a href="appointment.html" class="active">Make Appointment</a></li>
+        <li><a href="symptom_checker.html">Symptom Checker</a></li>
+        <li id="logout-link">Logout</li>
+        <li id="navLogout" style="display:none;">Logout</li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Book an Appointment</h1>
+    <form id="appointmentForm">
+      <div class="form-group">
+        <label for="doctor">Select Doctor</label>
+        <select id="doctor" name="doctor" required>
+          <option value="">--Select--</option>
+          <option value="Dr. John Smith">Dr. John Smith (Cardiology)</option>
+          <option value="Dr. Jane Doe">Dr. Jane Doe (Neurology)</option>
+          <option value="Dr. Emily White">Dr. Emily White (Orthopedics)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="appointmentDate">Date</label>
+        <input type="date" id="appointmentDate" name="appointmentDate" required />
+      </div>
+
+      <div class="form-group">
+        <label for="appointmentTime">Time</label>
+        <input type="time" id="appointmentTime" name="appointmentTime" required />
+      </div>
+
+      <button type="submit" class="btn">Proceed to Payment</button>
+    </form>
+  </main>
+
+  <footer>&copy; 2023 Healthcare App. All rights reserved.</footer>
+
+  <script>
+    document.getElementById('appointmentForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      // Optionally, you can save form data to sessionStorage
+      const doctor = document.getElementById('doctor').value;
+      const date = document.getElementById('appointmentDate').value;
+      const time = document.getElementById('appointmentTime').value;
+
+      sessionStorage.setItem('appointmentDoctor', doctor);
+      sessionStorage.setItem('appointmentDate', date);
+      sessionStorage.setItem('appointmentTime', time);
+
+      // Redirect to payment page
+      window.location.href = 'payment.html';
+    });
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Doctors - Healthcare App</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+  <header>
+    <div class="logo" onclick="window.location.href='index.html'">
+      <img src="images/logo.png" alt="Healthcare Logo" />
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="departments.html">Departments</a></li>
+        <li><a href="doctors.html" class="active">Doctors</a></li>
+        <li><a href="appointment.html" id="navAppointment">Make Appointment</a></li>
+        <li><a href="symptom_checker.html" id="navSymptomChecker">Symptom Checker</a></li>
+        <li><a href="medical_documents.html" id="navMedicalDocs">Medical Documents</a></li>
+        <li><a href="login_register.html" id="navLoginRegister">Login / Register</a></li>
+        <li id="navLogout" style="display:none;">Logout</li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Available Doctors</h1>
+    <p>Choose a doctor to book an appointment.</p>
+
+    <!-- Filter/Search Section -->
+    <div class="filter-bar">
+      <input type="text" id="searchInput" placeholder="Search by doctor name..." />
+      <select id="departmentFilter">
+        <option value="">All Departments</option>
+        <option value="Cardiology">Cardiology</option>
+        <option value="Neurology">Neurology</option>
+        <option value="Orthopedics">Orthopedics</option>
+      </select>
+      <select id="ratingFilter">
+        <option value="">All Ratings</option>
+        <option value="5">5 Stars</option>
+        <option value="4">4+ Stars</option>
+        <option value="3">3+ Stars</option>
+      </select>
+    </div>
+
+    <!-- Doctor Cards -->
+    <div class="doctor-grid">
+      <div class="doctor-card" data-name="John Smith" data-department="Cardiology" data-rating="4.5">
+        <img src="images/doctor1.jpg" alt="Dr. John Smith" />
+        <div class="info">
+          <h2>Dr. John Smith</h2>
+          <p>Cardiology</p>
+          <p>MBBS, FCPS, MD</p>
+          <p>⭐⭐⭐⭐☆ (4.5)</p>
+          <a href="appointment.html" class="btn">Book Appointment</a>
+        </div>
+      </div>
+
+      <div class="doctor-card" data-name="Jane Doe" data-department="Neurology" data-rating="4.8">
+        <img src="images/doctor2.jpg" alt="Dr. Jane Doe" />
+        <div class="info">
+          <h2>Dr. Jane Doe</h2>
+          <p>Neurology</p>
+          <p>MBBS, FCPS, DM (Neuro)</p>
+          <p>⭐⭐⭐⭐⭐ (4.8)</p>
+          <a href="appointment.html" class="btn">Book Appointment</a>
+        </div>
+      </div>
+
+      <div class="doctor-card" data-name="Emily White" data-department="Orthopedics" data-rating="4.2">
+        <img src="images/doctor3.jpg" alt="Dr. Emily White" />
+        <div class="info">
+          <h2>Dr. Emily White</h2>
+          <p>Orthopedics</p>
+          <p>MBBS, D-Ortho</p>
+          <p>⭐⭐⭐⭐ (4.2)</p>
+          <a href="appointment.html" class="btn">Book Appointment</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>&copy; 2023 Healthcare App. All rights reserved.</footer>
+
+  <script src="js/script.js"></script>
+  <script>
+    const searchInput = document.getElementById('searchInput');
+    const departmentFilter = document.getElementById('departmentFilter');
+    const ratingFilter = document.getElementById('ratingFilter');
+    const doctorCards = document.querySelectorAll('.doctor-card');
+
+    function filterDoctors() {
+      const searchValue = searchInput.value.toLowerCase();
+      const departmentValue = departmentFilter.value;
+      const ratingValue = parseFloat(ratingFilter.value) || 0;
+
+      doctorCards.forEach(card => {
+        const name = card.dataset.name.toLowerCase();
+        const department = card.dataset.department;
+        const rating = parseFloat(card.dataset.rating);
+
+        const matchesName = name.includes(searchValue);
+        const matchesDept = departmentValue === '' || department === departmentValue;
+        const matchesRating = rating >= ratingValue;
+
+        card.style.display = (matchesName && matchesDept && matchesRating) ? 'flex' : 'none';
+      });
+    }
+
+    searchInput.addEventListener('input', filterDoctors);
+    departmentFilter.addEventListener('change', filterDoctors);
+    ratingFilter.addEventListener('change', filterDoctors);
+  </script>
+</body>
+
+</html>

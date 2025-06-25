@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Departments - Healthcare App</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+
+  <header>
+    <div class="logo" onclick="window.location.href='index.html'">
+      <img src="images/logo.png" alt="Healthcare Logo" />
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="departments.html" class="active">Departments</a></li>
+        <li><a href="doctors.html">Doctors</a></li>
+        <li><a href="appointment.html" id="navAppointment">Make Appointment</a></li>
+        <li><a href="symptom_checker.html" id="navSymptomChecker">Symptom Checker</a></li>
+        <li><a href="medical_documents.html" id="navMedicalDocs">Medical Documents</a></li>
+        <li><a href="login_register.html" id="navLoginRegister">Login / Register</a></li>
+        <li id="navLogout" style="display:none;">Logout</li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h1 class="text-center">Explore Our Medical Departments</h1>
+    <p class="text-center mb-4">Choose a department to see available specialists and book appointments.</p>
+
+    <div class="grid grid-3 mb-4" style="max-width: 1200px; margin: 0 auto;">
+
+      <!-- Cardiology -->
+      <div class="card text-center">
+        <img src="images/icons/cardiology.png" alt="Cardiology Icon" style="height: 80px; margin-bottom: 1rem;" />
+        <h2>Cardiology</h2>
+        <p>Heart-related diagnosis and advanced cardiac care.</p>
+        <a href="doctors.html?department=Cardiology" class="btn">View Doctors</a>
+      </div>
+
+      <!-- Neurology -->
+      <div class="card text-center">
+        <img src="images/icons/neurology.png" alt="Neurology Icon" style="height: 80px; margin-bottom: 1rem;" />
+        <h2>Neurology</h2>
+        <p>Brain, spine, and nervous system specialists.</p>
+        <a href="doctors.html?department=Neurology" class="btn">View Doctors</a>
+      </div>
+
+      <!-- Orthopedics -->
+      <div class="card text-center">
+        <img src="images/icons/orthopedics.png" alt="Orthopedics Icon" style="height: 80px; margin-bottom: 1rem;" />
+        <h2>Orthopedics</h2>
+        <p>Bone, joint, and spine care and surgery.</p>
+        <a href="doctors.html?department=Orthopedics" class="btn">View Doctors</a>
+      </div>
+
+      <!-- Pediatrics -->
+      <div class="card text-center">
+        <img src="images/icons/pediatrics.png" alt="Pediatrics Icon" style="height: 80px; margin-bottom: 1rem;" />
+        <h2>Pediatrics</h2>
+        <p>Health care services for children and infants.</p>
+        <a href="doctors.html?department=Pediatrics" class="btn">View Doctors</a>
+      </div>
+
+      <!-- Dermatology -->
+      <div class="card text-center">
+        <img src="images/icons/dermatology.png" alt="Dermatology Icon" style="height: 80px; margin-bottom: 1rem;" />
+        <h2>Dermatology</h2>
+        <p>Skin, hair, and nail treatments and care.</p>
+        <a href="doctors.html?department=Dermatology" class="btn">View Doctors</a>
+      </div>
+
+      <!-- Add more departments as needed -->
+
+    </div>
+  </main>
+
+  <footer>&copy; 2023 Healthcare App. All rights reserved.</footer>
+  <script src="js/script.js"></script>
+
+</body>
+
+</html>

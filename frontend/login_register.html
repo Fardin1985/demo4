@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login / Register - Healthcare App</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+</head>
+
+<body>
+  <header>
+    <div class="logo" onclick="window.location.href='index.html'">
+      <img src="images/logo.png" alt="Healthcare Logo" />
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="departments.html">Departments</a></li>
+        <li><a href="doctors.html">Doctors</a></li>
+        <li><a href="appointment.html">Make Appointment</a></li>
+        <li><a href="symptom_checker.html">Symptom Checker</a></li>
+        <li id="navLogout" style="display:none;">Logout</li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="auth-container">
+    <!-- Login Section -->
+    <section class="auth-section">
+      <h2>Login to Your Account</h2>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="loginEmail">Email</label>
+          <input type="email" id="loginEmail" required placeholder="Enter your email" />
+        </div>
+        <div class="form-group">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" required placeholder="Enter your password" />
+        </div>
+        <div class="form-group">
+          <label for="loginRole">I am a:</label>
+          <select id="loginRole" required>
+            <option value="">Select role</option>
+            <option value="patient">Patient</option>
+            <option value="doctor">Doctor</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+        <button type="button" class="btn btn-google" onclick="googleLogin()">
+          <i class="fab fa-google"></i> Sign in with Google
+        </button>
+      </form>
+    </section>
+
+    <!-- Divider -->
+    <div class="auth-divider">
+      <span>OR</span>
+    </div>
+
+    <!-- Register Section -->
+    <section class="auth-section">
+      <h2>Create New Account</h2>
+      <form id="registerForm">
+        <div class="form-group">
+          <label for="regUsername">Full Name</label>
+          <input type="text" id="regUsername" required placeholder="Your full name" />
+        </div>
+        <div class="form-group">
+          <label for="regEmail">Email</label>
+          <input type="email" id="regEmail" required placeholder="Your email address" />
+        </div>
+        <div class="form-group">
+          <label for="regPassword">Password</label>
+          <input type="password" id="regPassword" required placeholder="Create a password" />
+        </div>
+        <div class="form-group">
+          <label for="regRole">Register as:</label>
+          <select id="regRole" required>
+            <option value="">Select account type</option>
+            <option value="patient">Patient</option>
+            <option value="doctor">Doctor</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Register Now</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 Healthcare App. All rights reserved.
+  </footer>
+
+  <script>
+    // Firebase Config
+    const firebaseConfig = {
+      apiKey: "AIzaSyCOak9TI_1p13zTCpMN9f6k7qrT5LHT-wQ",
+      authDomain: "healthcare-app-4d06b.firebaseapp.com",
+      projectId: "healthcare-app-4d06b",
+      storageBucket: "healthcare-app-4d06b.appspot.com",
+      messagingSenderId: "378214396778",
+      appId: "1:378214396778:web:47595ad16c01684ecf6b13",
+      measurementId: "G-6F64FSSEC6"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    function googleLogin() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider)
+        .then((result) => {
+          const user = result.user;
+          sessionStorage.setItem('isLoggedIn', 'true');
+          sessionStorage.setItem('username', user.displayName || user.email.split('@')[0]);
+          sessionStorage.setItem('userEmail', user.email);
+          sessionStorage.setItem('userRole', 'patient');
+          window.location.href = 'index.html';
+        })
+        .catch((error) => {
+          console.error(error);
+          alert("Google login failed: " + error.message);
+        });
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+      const role = document.getElementById('loginRole').value;
+
+      if (!role) {
+        alert("Please select your role");
+        return;
+      }
+
+      // Demo authentication (replace with actual Firebase auth)
+      if (
+        (email === 'patient@test.com' && password === '123456' && role === 'patient') ||
+        (email === 'doctor@test.com' && password === 'abcdef' && role === 'doctor')
+      ) {
+        sessionStorage.setItem('isLoggedIn', 'true');
+        sessionStorage.setItem('username', email.split('@')[0]);
+        sessionStorage.setItem('userEmail', email);
+        sessionStorage.setItem('userRole', role);
+        window.location.href = role === 'doctor' ? 'doctor_dashboard.html' : 'dashboard.html';
+      } else {
+        alert('Invalid credentials! Use:\nPatient: patient@test.com/123456\nDoctor: doctor@test.com/abcdef');
+      }
+    });
+
+    document.getElementById('registerForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const email = document.getElementById('regEmail').value;
+      const username = document.getElementById('regUsername').value;
+      const role = document.getElementById('regRole').value;
+
+      if (!role) {
+        alert("Please select your account type");
+        return;
+      }
+
+      sessionStorage.setItem('isLoggedIn', 'true');
+      sessionStorage.setItem('username', username);
+      sessionStorage.setItem('userEmail', email);
+      sessionStorage.setItem('userRole', role);
+      window.location.href = role === 'doctor' ? 'doctor_dashboard.html' : 'dashboard.html';
+    });
+  </script>
+
+  <style>
+    /* Minimal necessary styles if not in style.css */
+    .auth-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    .auth-section {
+      flex: 1;
+      min-width: 300px;
+      max-width: 400px;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      margin: 1rem 0;
+    }
+
+    .auth-divider::before {
+      content: "";
+      height: 1px;
+      width: 100%;
+      background: #e2e8f0;
+      position: absolute;
+    }
+
+    .auth-divider span {
+      background: white;
+      padding: 0 1rem;
+      position: relative;
+      z-index: 1;
+      color: #64748b;
+    }
+
+    .btn-google {
+      background: #db4437;
+      color: white;
+      margin-top: 1rem;
+    }
+  </style>
+</body>
+
+</html>

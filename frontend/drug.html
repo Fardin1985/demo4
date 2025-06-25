@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Add Drug - Healthcare App</title>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="images/logo.png" alt="Healthcare Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="medical_documents.html">Medical Documents</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+                <li><a href="logout.html">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="drug">
+            <h1>Add Drug</h1>
+            <form id="drugForm">
+                <div class="form-group">
+                    <label for="drug_name">Drug Name:</label>
+                    <input type="text" id="drug_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="dosage_form">Dosage Form:</label>
+                    <input type="text" id="dosage_form" required>
+                </div>
+                <div class="form-group">
+                    <label for="strength">Strength:</label>
+                    <input type="text" id="strength" required>
+                </div>
+                <div class="form-group">
+                    <label for="additional_notes">Additional Notes:</label>
+                    <textarea id="additional_notes"></textarea>
+                </div>
+                <button type="submit" class="btn">Add Drug</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Healthcare App. All rights reserved.</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

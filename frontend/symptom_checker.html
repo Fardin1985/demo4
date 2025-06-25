@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Symptom Checker - Healthcare App</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+  <header>
+    <div class="logo" onclick="window.location.href='index.html'">
+      <img src="images/logo.png" alt="Healthcare Logo" />
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="departments.html">Departments</a></li>
+        <li><a href="doctors.html">Doctors</a></li>
+        <li><a href="make_appointment.html" id="navAppointment">Make Appointment</a></li>
+        <li><a href="symptom_checker.html" class="active" id="navSymptomChecker">Symptom Checker</a></li>
+        <li><a href="medical_documents.html" id="navMedicalDocs">Medical Documents</a></li>
+        <li><a href="login_register.html" id="navLoginRegister">Login / Register</a></li>
+        <li id="navLogout" style="display:none; cursor:pointer;">Logout</li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Symptom Checker</h1>
+    <p>Select one or more diseases below to view their symptoms.</p>
+
+    <div class="disease-list" id="diseaseList"></div>
+
+    <div class="symptom-list" id="symptomList" style="display:none;">
+      <h3>Symptoms:</h3>
+      <ul id="symptomItems"></ul>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2023 Healthcare App. All rights reserved.
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const diseases = {
+        "Flu": ["Fever", "Cough", "Sore throat", "Runny or stuffy nose", "Body aches", "Fatigue"],
+        "Diabetes": ["Increased thirst", "Frequent urination", "Extreme hunger", "Unexplained weight loss", "Fatigue", "Blurred vision"],
+        "Migraine": ["Severe headache", "Nausea", "Sensitivity to light", "Sensitivity to sound", "Visual disturbances"],
+        "Asthma": ["Shortness of breath", "Chest tightness", "Wheezing", "Coughing"],
+        "Hypertension": ["Often none", "Headaches", "Shortness of breath", "Nosebleeds"],
+        "COVID-19": ["Fever", "Dry cough", "Tiredness", "Loss of taste or smell", "Difficulty breathing"],
+        "Arthritis": ["Joint pain", "Swelling", "Reduced range of motion", "Stiffness"],
+        "Chickenpox": ["Itchy rash", "Fever", "Fatigue", "Loss of appetite"],
+        "Common Cold": ["Sneezing", "Sore throat", "Runny nose", "Cough"]
+      };
+
+      const diseaseListEl = document.getElementById('diseaseList');
+      const symptomListContainer = document.getElementById('symptomList');
+      const symptomItemsEl = document.getElementById('symptomItems');
+
+      function updateSymptoms() {
+        const checkedDiseases = Array.from(document.querySelectorAll('input[name="diseases"]:checked')).map(cb => cb.value);
+        if (checkedDiseases.length === 0) {
+          symptomListContainer.style.display = 'none';
+          symptomItemsEl.innerHTML = '';
+          return;
+        }
+
+        const symptomSet = new Set();
+        checkedDiseases.forEach(disease => {
+          diseases[disease].forEach(symptom => symptomSet.add(symptom));
+        });
+
+        symptomItemsEl.innerHTML = '';
+        symptomSet.forEach(symptom => {
+          const li = document.createElement('li');
+          li.textContent = symptom;
+          symptomItemsEl.appendChild(li);
+        });
+
+        symptomListContainer.style.display = 'block';
+      }
+
+      Object.keys(diseases).forEach((disease, index) => {
+        const label = document.createElement('label');
+        label.setAttribute('for', `disease-${index}`);
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.name = 'diseases';
+        checkbox.id = `disease-${index}`;
+        checkbox.value = disease;
+        checkbox.addEventListener('change', updateSymptoms);
+
+        label.appendChild(checkbox);
+        label.appendChild(document.createTextNode(disease));
+        diseaseListEl.appendChild(label);
+      });
+
+      const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+      const userRole = sessionStorage.getItem('userRole');
+
+      document.getElementById('navLoginRegister').style.display = isLoggedIn ? 'none' : 'inline-block';
+      document.getElementById('navLogout').style.display = isLoggedIn ? 'inline-block' : 'none';
+      document.getElementById('navMedicalDocs').style.display = (isLoggedIn && (userRole === 'patient' || userRole === 'doctor')) ? 'inline-block' : 'none';
+      document.getElementById('navAppointment').style.display = (isLoggedIn && userRole === 'patient') ? 'inline-block' : 'none';
+      document.getElementById('navSymptomChecker').style.display = (isLoggedIn && userRole === 'patient') ? 'inline-block' : 'none';
+
+      document.getElementById('navLogout').addEventListener('click', () => {
+        alert('Logged out successfully!');
+        sessionStorage.clear();
+        window.location.href = 'index.html';
+      });
+    });
+  </script>
+</body>
+
+</html>
+
